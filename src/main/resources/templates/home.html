@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title >wendaProject</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <!-- 这是一个水平线 -->
+    <hr>
+    <table border='1' align="center" cellspacing="0">
+        <caption>userTable</caption>
+        <tr>
+            <th>id</th>
+            <th>userName</th>
+            <th>question</th>
+            <th>createdDate</th>
+            <th>url</th>
+        </tr>
+        <tr th:each="vo:${vos}">
+            <td th:text="${vo.get('user').id}"></td>
+            <td th:text="${vo.get('user').name}"></td>
+            <td th:text="${vo.get('question').title}"></td>
+            <td th:text="${vo.get('question').createdDate}"></td>
+            <td >
+                <a th:href="${vo.get('user').headUrl}">url</a>
+            </td>
+        </tr>
+    </table>
+    <hr>
+
+
+
+</body>
+
+</html>
