@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
+import java.util.Random;
+
 /**
  * Created by nowcoder on 2016/7/3.
  */
@@ -49,5 +51,16 @@ public class WendaUtil {
             logger.error("生成MD5失败", e);
             return null;
         }
+    }
+
+    public static String getRandomString(int length){
+        Random random=new Random();
+        StringBuffer sb=new StringBuffer();
+        String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for(int i=0;i<length;i++){
+            int number=random.nextInt(52);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
     }
 }
