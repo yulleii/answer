@@ -1,7 +1,6 @@
 package com.nowcoder.answer.controller;
 
 import com.nowcoder.answer.model.Question;
-import com.nowcoder.answer.model.User;
 import com.nowcoder.answer.model.ViewObject;
 import com.nowcoder.answer.service.QuestionService;
 import com.nowcoder.answer.service.UserService;
