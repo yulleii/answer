@@ -6,8 +6,9 @@ import com.nowcoder.answer.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.*;
-
+@Service
 public class JedisAdapter implements InitializingBean {
     private static final Logger logger= LoggerFactory.getLogger(JedisAdapter.class);
     private JedisPool pool;
