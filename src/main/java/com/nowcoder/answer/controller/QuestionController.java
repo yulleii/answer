@@ -2,8 +2,10 @@ package com.nowcoder.answer.controller;
 
 import com.nowcoder.answer.model.*;
 import com.nowcoder.answer.service.CommentService;
+import com.nowcoder.answer.service.LikeService;
 import com.nowcoder.answer.service.QuestionService;
 import com.nowcoder.answer.service.UserService;
+import com.nowcoder.answer.util.RedisKeyUtil;
 import com.nowcoder.answer.util.WendaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,8 @@ public class QuestionController {
     UserService userService;
     @Autowired
     CommentService commentService;
+    @Autowired
+    LikeService likeService;
     @RequestMapping(value="/question/add",method={RequestMethod.POST})
     @ResponseBody
     public String addQuestion(@RequestParam("title")String title,
@@ -60,11 +64,17 @@ public class QuestionController {
         model.addAttribute("user", userService.getUser(question.getUserId()));
 
         List<Comment>commentList=commentService.getCommentByEntity(qid, EntityType.ENTITY_QUESTION);
-        List<ViewObject>comments=new ArrayList<ViewObject>();
+        List<ViewObject>comments=new ArrayList<>();
         for(Comment comment:commentList){
             ViewObject vo=new ViewObject();
             vo.set("comment",comment);
             vo.set("user",userService.getUser(comment.getUserId()));
+            vo.set("likeCount",likeService.getLikeCount(EntityType.ENTITY_COMMENT,comment.getId()));
+            if(hostHolder.getUser()!=null){
+                vo.set("liked",likeService.getLikeStatus(hostHolder.getUser().getId(),EntityType.ENTITY_COMMENT,comment.getId()));
+            }else{
+                vo.set("liked",0);
+            }
             comments.add(vo);
         }
         model.addAttribute("comments",comments);
