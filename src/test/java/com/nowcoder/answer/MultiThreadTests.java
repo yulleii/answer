@@ -105,18 +105,18 @@ public class MultiThreadTests {
             }
         });
 
-        //service.shutdown();
-        while(!service.isTerminated()){
-            try{
-                Thread.sleep(1000);
-                service.shutdownNow();
-                System.out.println("wait for termination!");
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-        }
+        service.shutdown();
+//        while(!service.isTerminated()){
+//            try{
+//                Thread.sleep(1000);
+//                service.shutdownNow();
+//                System.out.println("wait for termination!");
+//
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//
+//        }
     }
     public static void testBlockQueue(){
         BlockingQueue<String>q=new ArrayBlockingQueue<>(10);
@@ -220,7 +220,7 @@ public class MultiThreadTests {
         service.shutdown();
         try{
             //System.out.println(future.get());
-            System.out.println(future.get(1000,TimeUnit.MILLISECONDS));
+            System.out.println(future.get(10000,TimeUnit.MILLISECONDS));
 
         }catch (Exception e){
             e.printStackTrace();
@@ -229,10 +229,10 @@ public class MultiThreadTests {
     public static void main (String[] args) {
         //testThread();
         //testExecutor();
-        //testBlockQueue();
+        testBlockQueue();
         //testThreadLocal();
         //testWithoutAtomic();
         //testWithAtomic();
-        testFuture();
+        //testFuture();
     }
 }
