@@ -1,5 +1,8 @@
 package com.nowcoder.answer.controller;
 
+import com.nowcoder.answer.async.EventModel;
+import com.nowcoder.answer.async.EventProducer;
+import com.nowcoder.answer.async.EventType;
 import com.nowcoder.answer.model.Comment;
 import com.nowcoder.answer.model.EntityType;
 import com.nowcoder.answer.model.HostHolder;
@@ -23,6 +26,9 @@ public class LikeController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    EventProducer eventProducer;
+
 
     @RequestMapping(path = {"/like"}, method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
@@ -30,9 +36,14 @@ public class LikeController {
         if (hostHolder.getUser() == null) {
             return WendaUtil.getJsonString(999);
         }
-
         Comment comment = commentService.getCommentById(commentId);
 
+        eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                .setActorId(hostHolder.getUser().getId())
+                .setEntityId(commentId)
+                .setEntityType(EntityType.ENTITY_COMMENT)
+                .setExt("questionId",String.valueOf(comment.getEntityId()))
+                .setEntityOwnerId(comment.getUserId()));
 
         long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);
         return WendaUtil.getJsonString(0, String.valueOf(likeCount));

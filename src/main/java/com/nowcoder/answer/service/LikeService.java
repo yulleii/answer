@@ -44,4 +44,5 @@ public class LikeService {
 
         return jedisAdapter.scard(likeKey);
     }
+
 }

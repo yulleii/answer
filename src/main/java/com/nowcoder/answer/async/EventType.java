@@ -1,5 +1,5 @@
 package com.nowcoder.answer.async;
-
+//标注每一个事件的类型
 public enum EventType {
     LIKE(0),
     COMMENT(1),

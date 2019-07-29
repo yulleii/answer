@@ -13,6 +13,7 @@ import java.util.Random;
 public class WendaUtil {
     private static final Logger logger = LoggerFactory.getLogger(WendaUtil.class);
     public static int ANONYMITY_USERID=3;
+    public static int SYSTEM_USERID=4;
     public static String getJsonString(int code,String msg){
         JSONObject json=new JSONObject();
         json.put("code",code);
